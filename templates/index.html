@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Копирование товаров</title>
+</head>
+<body>
+    <h1>Копирование товаров</h1>
+    <form action="/add_store" method="POST">
+        <input type="text" name="api_url" placeholder="API магазина" required>
+        <button type="submit">Добавить магазин</button>
+    </form>
+
+    <form action="/copy_products" method="POST">
+        <select name="selected_api" required>
+            {% for store in api_stores %}
+                <option value="{{ store }}">{{ store }}</option>
+            {% endfor %}
+        </select>
+        <textarea name="skus" placeholder="Введите артикулы через запятую" required></textarea>
+        <button type="submit">Копировать товары</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
